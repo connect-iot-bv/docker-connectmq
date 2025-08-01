@@ -21,7 +21,7 @@ COPY --chown=10000:10000 files/vm.args /vernemq/etc/vm.args
 RUN ARCH=$(uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/') && \
     curl -L https://github.com/connect-iot-bv/connectmq/releases/download/$CONNECTMQ_VERSION/connectmq-$CONNECTMQ_VERSION-linux-$ARCH.tar.gz -o /tmp/connectmq.tar.gz && \
     tar -xzvf /tmp/connectmq.tar.gz -C /tmp && \
-    mv /tmp/vernemq/* /vernemq/ && \
+    cp -r /tmp/vernemq/* /vernemq/ && \
     rm -rf /tmp/connectmq.tar.gz /tmp/vernemq && \
     chown -R 10000:10000 /vernemq && \
     ln -s /vernemq/etc /etc/vernemq && \

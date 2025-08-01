@@ -24,7 +24,18 @@ ConnectMQ is developed by Connect IoT BV and based on VerneMQ (Apache2 licensed,
 
 This eliminates the licensing complexity of the original VerneMQ Docker images.
 
-### 2. Using pure Docker commands
+### 2. Using Helm with ConnectMQ
+
+You can use the original VerneMQ Helm chart with ConnectMQ images:
+
+```bash
+helm repo add vernemq https://vernemq.github.io/docker-vernemq
+helm install my-connectmq vernemq/vernemq \
+  --set image.repository=ghcr.io/connect-iot-bv/connectmq \
+  --set image.tag=latest
+```
+
+### 3. Using pure Docker commands
 
     docker run --name connectmq1 -d ghcr.io/connect-iot-bv/connectmq:latest
 
