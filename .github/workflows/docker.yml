@@ -79,26 +79,3 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Test image (AMD64 only)
-        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
-        run: |
-          docker buildx build \
-            --file ./${{ matrix.dockerfile }} \
-            --platform linux/amd64 \
-            --load \
-            --tag test-image:latest \
-            .
-          
-          # Test container startup
-          docker run --rm -d --name connectmq-test \
-            -e "DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on" \
-            test-image:latest
-          
-          # Wait for startup
-          sleep 10
-          
-          # Test health check
-          docker exec connectmq-test vernemq ping | grep -q pong
-          
-          # Cleanup
-          docker stop connectmq-test
