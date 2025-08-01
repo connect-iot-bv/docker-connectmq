@@ -1,50 +1,40 @@
-# docker-vernemq
+# ConnectMQ Docker Images
 
-## What is VerneMQ?
+## What is ConnectMQ?
 
-VerneMQ is a high-performance, distributed MQTT message broker. It scales
-horizontally and vertically on commodity hardware to support a high number of
-concurrent publishers and consumers while maintaining low latency and fault
-tolerance. VerneMQ is the reliable message hub for your IoT platform or smart
-products.
+ConnectMQ is a fork of VerneMQ - a high-performance, distributed MQTT message broker built with **Apache 2.0 license only**, no proprietary EULA. It scales horizontally and vertically on commodity hardware to support a high number of concurrent publishers and consumers while maintaining low latency and fault tolerance.
 
-VerneMQ is an Apache2 licensed distributed MQTT broker, developed in Erlang.
+**Key Benefits:**
+- ✅ **Pure Apache 2.0** - No proprietary licensing or EULA restrictions
+- ✅ **Multi-architecture** - Native AMD64 and ARM64 support
+- ✅ **Built from source** - Full transparency, no binary licensing issues
+- ✅ **Free for commercial use** - No subscription required
+
+ConnectMQ is developed by Connect IoT BV and based on VerneMQ (Apache2 licensed, developed in Erlang).
 
 ## How to use this image
 
-### 1. Accepting the VerneMQ EULA
+### 1. No EULA Required! 🎉
 
-**NOTE:** To use the official Docker images you have to accept the [VerneMQ End
-User License Agreement](https://vernemq.com/end-user-license-agreement). You can
-read how to accept the VerneMQ EULA
-[here](https://docs.vernemq.com/installation/accepting-the-vernemq-eula).
+**ConnectMQ is Apache 2.0 licensed** - no EULA acceptance required! These Docker images use ConnectMQ binaries built from source with pure Apache 2.0 licensing.
 
-**NOTE 2 (TL:DR)**:
-To use the binary Docker packages (that is, the official packages from Docker Hub) or the VerneMQ binary Linux packages commercially and legally, you need a paid subscription. Accepting the EULA is your promise to do that. To avoid a subscription, you need to clone this repository and build and host your own Dockerfiles/-images.
+- ✅ **Commercial use allowed** - No subscription fees
+- ✅ **No license restrictions** - Use freely in production
+- ✅ **Complete transparency** - Built from open source
 
-### 2. Using [Helm](https://helm.sh/) to deploy on [Kubernetes](https://kubernetes.io/)
+This eliminates the licensing complexity of the original VerneMQ Docker images.
 
-First install and configure Helm according to the [documentation](https://helm.sh/docs/using_helm/#quickstart-guide). Then add VerneMQ Helm charts repository:
+### 2. Using pure Docker commands
 
-    helm repo add vernemq https://vernemq.github.io/docker-vernemq
-
-You can now deploy VerneMQ on your Kubernetes cluster:
-
-    helm install vernemq/vernemq
-
-For more information, check out the Helm chart [README](helm/vernemq/README.md).
-
-### 3. Using pure Docker commands
-
-    docker run -e "DOCKER_VERNEMQ_ACCEPT_EULA=yes" --name vernemq1 -d vernemq/vernemq
+    docker run --name connectmq1 -d ghcr.io/connect-iot-bv/connectmq:latest
 
 Sometimes you need to configure a forwarding for ports (on a Mac for example):
 
-    docker run -p 1883:1883 -e "DOCKER_VERNEMQ_ACCEPT_EULA=yes" --name vernemq1 -d vernemq/vernemq
+    docker run -p 1883:1883 --name connectmq1 -d ghcr.io/connect-iot-bv/connectmq:latest
 
 This starts a new node that listens on 1883 for MQTT connections and on 8080 for MQTT over websocket connections. However, at this moment the broker won't be able to authenticate the connecting clients. To allow anonymous clients use the ```DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on``` environment variable.
 
-    docker run -e "DOCKER_VERNEMQ_ACCEPT_EULA=yes" -e "DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on" --name vernemq1 -d vernemq/vernemq
+    docker run -e "DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on" --name connectmq1 -d ghcr.io/connect-iot-bv/connectmq:latest
 
 #### Autojoining a VerneMQ cluster
 
