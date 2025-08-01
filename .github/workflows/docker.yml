@@ -80,7 +80,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Test image (AMD64 only)
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
         run: |
           docker buildx build \
             --file ./${{ matrix.dockerfile }} \
