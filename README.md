@@ -1,5 +1,7 @@
 # ConnectMQ Docker Images
 
+> Important: **ConnectMQ** image does not require `DOCKER_VERNEMQ_ACCEPT_EULA=yes` environment variable. Remove it or it might cause issues.
+
 ## What is ConnectMQ?
 
 ConnectMQ is a fork of VerneMQ - a high-performance, distributed MQTT message broker built with **Apache 2.0 license only**, no proprietary EULA. It scales horizontally and vertically on commodity hardware to support a high number of concurrent publishers and consumers while maintaining low latency and fault tolerance.
