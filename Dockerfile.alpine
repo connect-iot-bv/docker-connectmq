@@ -1,7 +1,8 @@
 FROM alpine:3.20.0
 
 RUN apk --no-cache --update --available upgrade && \
-    apk add --no-cache ncurses-libs libstdc++ jq curl bash snappy nano && \
+    apk add --no-cache ncurses-libs libstdc++ jq curl bash snappy nano \
+    gcompat net-tools iproute2 procps && \
     addgroup --gid 10000 vernemq && \
     adduser --uid 10000 -H -D -G vernemq -h /vernemq vernemq && \
     install -d -o vernemq -g vernemq /vernemq
