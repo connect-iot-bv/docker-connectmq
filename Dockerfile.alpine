@@ -2,7 +2,7 @@ FROM alpine:3.20.0
 
 RUN apk --no-cache --update --available upgrade && \
     apk add --no-cache ncurses-libs ncurses-terminfo-base ncurses-terminfo libstdc++ jq curl bash snappy nano \
-    gcompat net-tools iproute2 procps && \
+    gcompat libc6-compat net-tools iproute2 procps && \
     ln -s /usr/lib/libncursesw.so.6 /usr/lib/libtinfo.so.6 && \
     addgroup --gid 10000 vernemq && \
     adduser --uid 10000 -H -D -G vernemq -h /vernemq vernemq && \
