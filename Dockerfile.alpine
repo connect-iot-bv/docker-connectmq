@@ -8,6 +8,7 @@ RUN apk --no-cache --update --available upgrade && \
     wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r1/glibc-bin-2.35-r1.apk && \
     apk add --no-cache --force-overwrite glibc-2.35-r1.apk glibc-bin-2.35-r1.apk && \
     rm glibc-2.35-r1.apk glibc-bin-2.35-r1.apk && \
+    echo '/usr/glibc-compat/lib' > /etc/ld-musl-x86_64.path && \
     apk add --no-cache ncurses-libs ncurses-terminfo-base ncurses-terminfo libstdc++ jq curl bash snappy nano \
     net-tools iproute2 procps && \
     ln -s /usr/lib/libncursesw.so.6 /usr/lib/libtinfo.so.6 && \
