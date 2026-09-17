@@ -1,4 +1,4 @@
-FROM alpine:3.22.1
+FROM dhi.io/alpine-base:3.24-dev
 
 RUN apk --no-cache --update --available upgrade && \
     apk add --no-cache ncurses-libs libstdc++ jq curl bash snappy nano \
@@ -11,7 +11,7 @@ RUN apk --no-cache --update --available upgrade && \
 ENV DOCKER_VERNEMQ_KUBERNETES_LABEL_SELECTOR="app=vernemq" \
     DOCKER_VERNEMQ_LOG__CONSOLE=console \
     PATH="/vernemq/bin:$PATH" \
-    CONNECTMQ_VERSION="v2.1.1"
+    CONNECTMQ_VERSION="v2.2.1"
 WORKDIR /vernemq
 
 COPY --chown=10000:10000 bin/vernemq.sh /usr/sbin/start_vernemq
@@ -26,10 +26,10 @@ RUN ARCH=$(uname -m | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/') && \
     cp -r /tmp/vernemq/* /vernemq/ && \
     rm -rf /tmp/connectmq.tar.gz /tmp/vernemq && \
     chown -R 10000:10000 /vernemq && \
+    mkdir -p /var/lib /var/log && \
     ln -s /vernemq/etc /etc/vernemq && \
     ln -s /vernemq/data /var/lib/vernemq && \
     ln -s /vernemq/log /var/log/vernemq
-
 # Ports
 # 1883  MQTT
 # 8883  MQTT/SSL

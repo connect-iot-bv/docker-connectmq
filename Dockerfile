@@ -1,7 +1,8 @@
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
+
 
 RUN apt-get update && \
-    apt-get -y install bash procps openssl iproute2 curl jq libsnappy1v5 net-tools nano && \
+    apt-get -y install bash procps openssl iproute2 curl jq libsnappy1v5 net-tools nano adduser && \
     rm -rf /var/lib/apt/lists/* && \
     addgroup --gid 10000 vernemq && \
     adduser --uid 10000 --system --ingroup vernemq --home /vernemq --disabled-password vernemq
@@ -12,7 +13,7 @@ WORKDIR /vernemq
 ENV DOCKER_VERNEMQ_KUBERNETES_LABEL_SELECTOR="app=vernemq" \
     DOCKER_VERNEMQ_LOG__CONSOLE=console \
     PATH="/vernemq/bin:$PATH" \
-    CONNECTMQ_VERSION="v2.1.1"
+    CONNECTMQ_VERSION="v2.2.1"
 COPY --chown=10000:10000 bin/vernemq.sh /usr/sbin/start_vernemq
 COPY --chown=10000:10000 bin/join_cluster.sh /usr/sbin/join_cluster
 COPY --chown=10000:10000 files/vm.args /vernemq/etc/vm.args
